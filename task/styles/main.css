@@ -11,7 +11,8 @@ body {
   background: #333;
   color: white;
 }
-display: flex;
+
+/* 容器 */
 .container {
   display: flex;
 }
@@ -22,11 +23,6 @@ display: flex;
   background: #f4f4f4;
 }
 
-/* 右边 */
-.main {
-  flex: 1;
-  padding: 20px;
-}
 .sidebar li {
   padding: 10px;
   cursor: pointer;
@@ -39,6 +35,8 @@ display: flex;
 .sidebar .active {
   background: #ccc;
 }
+
+/* 右边 */
 .cards {
   display: flex;
   gap: 10px;
@@ -50,11 +48,18 @@ display: flex;
   padding: 20px;
   border-radius: 8px;
 }
+
+/* 任务列表 */
+.tasks {
+  margin-top: 20px;
+}
+
 .task {
   display: flex;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .doing {
@@ -64,8 +69,9 @@ display: flex;
 .done {
   color: green;
 }
-@media (max-width: 768px) {
 
+/* 响应式 */
+@media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
@@ -73,5 +79,4 @@ display: flex;
   .cards {
     flex-direction: column;
   }
-
 }
