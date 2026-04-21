@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+}
+
+/* 顶部 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #333;
+  color: white;
+}
+display: flex;
+.container {
+  display: flex;
+}
+
+/* 左边 */
+.sidebar {
+  width: 200px;
+  background: #f4f4f4;
+}
+
+/* 右边 */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+.sidebar li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background: #ddd;
+}
+
+.sidebar .active {
+  background: #ccc;
+}
+.cards {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  flex: 1;
+  background: #eee;
+  padding: 20px;
+  border-radius: 8px;
+}
+.task {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.doing {
+  color: orange;
+}
+
+.done {
+  color: green;
+}
+@media (max-width: 768px) {
+
+  .container {
+    flex-direction: column;
+  }
+
+  .cards {
+    flex-direction: column;
+  }
+
+}
