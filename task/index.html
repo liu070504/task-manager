@@ -1,97 +1,174 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>任务管理</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>任务管理系统</title>
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-
-  <!-- 顶部 -->
+  <!-- 顶部导航栏 -->
   <header class="header">
-    <h1>Task Manager</h1>
-    <input type="text" placeholder="搜索任务..." />
-    <button onclick="addTask()">新建任务</button>
+    <div class="logo">
+      <i class="fa-solid fa-bars-progress"></i>
+      <span>任务管理中心</span>
+    </div>
+    <div class="header-right">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="搜索任务、关键词...">
+      </div>
+      <button class="add-btn">
+        <i class="fa-solid fa-plus"></i>
+        新建任务
+      </button>
+    </div>
   </header>
 
   <div class="container">
-
-    <!-- 左侧导航 -->
+    <!-- 左侧侧边栏 -->
     <nav class="sidebar">
-      <ul>
-        <li class="active" onclick="setActive(this)">Dashboard</li>
-        <li onclick="setActive(this)">My Tasks</li>
-        <li onclick="setActive(this)">Settings</li>
+      <ul class="nav-list">
+        <li class="nav-item active">
+          <i class="fa-solid fa-gauge"></i>
+          <span>控制台</span>
+        </li>
+        <li class="nav-item">
+          <i class="fa-solid fa-list-check"></i>
+          <span>我的任务</span>
+        </li>
+        <li class="nav-item">
+          <i class="fa-solid fa-gear"></i>
+          <span>系统设置</span>
+        </li>
       </ul>
     </nav>
 
-    <!-- 右侧内容 -->
-    <section class="cards">
-      <div class="card">今日待办：5</div>
-      <div class="card">已完成：12</div>
-    </section>
+    <!-- 主内容区域 -->
+    <main class="main-content">
+      <!-- 数据统计卡片 -->
+      <section class="card-wrap">
+        <div class="data-card card-pending">
+          <div class="card-icon">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="card-info">
+            <h3>今日待办</h3>
+            <p class="card-num" id="todoNum">4</p>
+          </div>
+        </div>
+        <div class="data-card card-done">
+          <div class="card-icon">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="card-info">
+            <h3>已完成任务</h3>
+            <p class="card-num" id="doneNum">2</p>
+          </div>
+        </div>
+      </section>
 
+      <!-- 任务列表 -->
+      <section class="task-box">
+        <div class="box-title">
+          <h2>全部任务</h2>
+          <p>点击状态标签可切换任务进度</p>
+        </div>
+        <div class="task-list">
+          <div class="task-item">
+            <div class="task-left">
+              <h4>完成前端页面开发优化</h4>
+              <div class="task-time">
+                <i class="fa-solid fa-calendar-days"></i>
+                截止日期：2025-12-20
+              </div>
+            </div>
+            <span class="task-status doing">进行中</span>
+          </div>
+
+          <div class="task-item">
+            <div class="task-left">
+              <h4>整理项目开发文档</h4>
+              <div class="task-time">
+                <i class="fa-solid fa-calendar-days"></i>
+                截止日期：2025-12-18
+              </div>
+            </div>
+            <span class="task-status done">已完成</span>
+          </div>
+
+          <div class="task-item">
+            <div class="task-left">
+              <h4>功能模块测试与调试</h4>
+              <div class="task-time">
+                <i class="fa-solid fa-calendar-days"></i>
+                截止日期：2025-12-22
+              </div>
+            </div>
+            <span class="task-status doing">进行中</span>
+          </div>
+
+          <div class="task-item">
+            <div class="task-left">
+              <h4>提交本周工作周报</h4>
+              <div class="task-time">
+                <i class="fa-solid fa-calendar-days"></i>
+                截止日期：2025-12-19
+              </div>
+            </div>
+            <span class="task-status done">已完成</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 附加模块：今日日程 -->
+      <section class="schedule-box">
+        <div class="box-title">
+          <h2>今日日程</h2>
+        </div>
+        <div class="schedule-list">
+          <div class="schedule-item">10:00 ｜ 日常团队例会</div>
+          <div class="schedule-item">14:00 ｜ 代码评审沟通</div>
+          <div class="schedule-item">16:30 ｜ 每日任务复盘</div>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <!-- 任务列表 -->
-  <section class="tasks">
-    <div class="task" onclick="toggleStatus(this)">
-      <span>写作业</span>
-      <span>2026-04-22</span>
-      <span class="doing">进行中</span>
-    </div>
-
-    <div class="task" onclick="toggleStatus(this)">
-      <span>复习HTML</span>
-      <span>2026-04-23</span>
-      <span class="done">已完成</span>
-    </div>
-  </section>
-
+  <!-- 极简交互 JS -->
   <script>
-    // 设置导航的选中状态
-    function setActive(el) {
-      let items = document.querySelectorAll('.sidebar li');
-      items.forEach(i => i.classList.remove('active'));
-      el.classList.add('active');
-    }
+    // 导航选中切换
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        navItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
 
-    // 新建任务功能
-    function addTask() {
-      const name = prompt("请输入任务名称");
-      if (!name) return;
+    // 任务状态切换 + 统计数字更新
+    const statusBtns = document.querySelectorAll('.task-status');
+    let todo = 4;
+    let done = 2;
+    const todoEl = document.getElementById('todoNum');
+    const doneEl = document.getElementById('doneNum');
 
-      const taskList = document.querySelector('.tasks');
-
-      const div = document.createElement('div');
-      div.className = 'task';
-      div.setAttribute('onclick', 'toggleStatus(this)');
-
-      div.innerHTML = `
-        <span>${name}</span>
-        <span>2026-04-30</span>
-        <span class="doing">进行中</span>
-      `;
-
-      taskList.appendChild(div);
-    }
-
-    // 切换任务状态
-    function toggleStatus(task) {
-      let status = task.querySelector('span:last-child');
-
-      if (status.classList.contains('doing')) {
-        status.classList.remove('doing');
-        status.classList.add('done');
-        status.innerText = '已完成';
-      } else {
-        status.classList.remove('done');
-        status.classList.add('doing');
-        status.innerText = '进行中';
-      }
-    }
+    statusBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if(btn.classList.contains('doing')){
+          btn.classList.replace('doing','done');
+          btn.innerText = '已完成';
+          todo--; done++;
+        }else{
+          btn.classList.replace('done','doing');
+          btn.innerText = '进行中';
+          todo++; done--;
+        }
+        todoEl.innerText = todo;
+        doneEl.innerText = done;
+      });
+    });
   </script>
-
 </body>
 </html>
